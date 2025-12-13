@@ -62,6 +62,7 @@ function App() {
                 animation: `snowfall ${5 + Math.random() * 4}s linear infinite`,
                 animationDelay: `${Math.random() * 2}s`,
                 fontSize: `${10 + Math.random() * 10}px`,
+                color: 'white',
               }}
             >
               ❄
