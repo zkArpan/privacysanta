@@ -50,6 +50,26 @@ function App() {
         }}
       />
 
+      {stage === 'gift' && (
+        <>
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div
+              key={i}
+              className="fixed pointer-events-none"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-10px',
+                animation: `snowfall ${5 + Math.random() * 4}s linear infinite`,
+                animationDelay: `${Math.random() * 2}s`,
+                fontSize: `${10 + Math.random() * 10}px`,
+              }}
+            >
+              ❄
+            </div>
+          ))}
+        </>
+      )}
+
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
         {stage === 'greeting' && (
           <div className="absolute top-8 right-8 max-w-sm animate-fade-in">
@@ -172,6 +192,17 @@ function App() {
           }
           50% {
             transform: translateY(-10px);
+          }
+        }
+
+        @keyframes snowfall {
+          from {
+            top: -10px;
+            opacity: 1;
+          }
+          to {
+            top: 100vh;
+            opacity: 0.3;
           }
         }
 
