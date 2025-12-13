@@ -3,24 +3,21 @@ import { useState, useEffect } from 'react';
 function App() {
   const [userInput, setUserInput] = useState('');
   const [stage, setStage] = useState<'greeting' | 'waiting' | 'response' | 'gift'>('greeting');
-  const [showGiftBox, setShowGiftBox] = useState(false);
   const [giftBoxY, setGiftBoxY] = useState(-200);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    if (stage === 'gift') {
-      setShowGiftBox(true);
-      const interval = setInterval(() => {
-        setGiftBoxY((prev) => {
-          if (prev >= window.innerHeight / 2 - 100) {
-            clearInterval(interval);
-            return window.innerHeight / 2 - 100;
-          }
-          return prev + 8;
-        });
-      }, 20);
-      return () => clearInterval(interval);
-    }
-  }, [stage]);
+    const interval = setInterval(() => {
+      setGiftBoxY((prev) => {
+        if (prev >= window.innerHeight / 2 - 100) {
+          clearInterval(interval);
+          return window.innerHeight / 2 - 100;
+        }
+        return prev + 8;
+      });
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +27,10 @@ function App() {
         setStage('gift');
       }, 2000);
     }
+  };
+
+  const handleGiftClick = () => {
+    setShowModal(true);
   };
 
   return (
@@ -93,27 +94,52 @@ function App() {
           </div>
         )}
 
-        {showGiftBox && (
-          <div
-            className="absolute left-1/2 transform -translate-x-1/2 transition-all duration-100"
-            style={{ top: `${giftBoxY}px` }}
+        <div
+          className="absolute left-1/2 transform -translate-x-1/2 transition-all duration-100"
+          style={{ top: `${giftBoxY}px` }}
+        >
+          <button
+            onClick={handleGiftClick}
+            className="block hover:scale-110 transition-transform duration-300 bg-transparent border-none cursor-pointer"
           >
-            <a
-              href="https://ethereum.org/en/privacy/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block hover:scale-110 transition-transform duration-300"
-            >
-              <img
-                src="/gemini_generated_image_rxeqhlrxeqhlrxeq__1_-removebg-preview.png"
-                alt="Privacy Gift"
-                className="w-48 h-48 drop-shadow-2xl animate-bounce-slow cursor-pointer"
-              />
-              <div className="mt-4 bg-white/95 rounded-2xl shadow-xl p-4 text-center">
-                <p className="text-lg font-bold text-blue-600">Click to Learn</p>
-                <p className="text-sm text-gray-600">About Web3 Privacy</p>
+            <img
+              src="/gemini_generated_image_rxeqhlrxeqhlrxeq__1_-removebg-preview.png"
+              alt="Privacy Gift"
+              className="w-48 h-48 drop-shadow-2xl animate-bounce-slow"
+            />
+            <div className="mt-4 bg-white/95 rounded-2xl shadow-xl p-4 text-center">
+              <p className="text-lg font-bold text-blue-600">Click to Unlock</p>
+              <p className="text-sm text-gray-600">Santa's Secret</p>
+            </div>
+          </button>
+        </div>
+
+        {showModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full animate-fade-in">
+              <h2 className="text-3xl font-bold text-blue-600 mb-4 text-center">
+                You unlocked Santa's Secret Scroll of Privacy!
+              </h2>
+              <p className="text-lg text-gray-700 mb-6 text-center">
+                This article will make you 1% more invisible on the blockchain
+              </p>
+              <div className="flex gap-3">
+                <a
+                  href="https://ethereum.org/en/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-full text-center hover:from-blue-600 hover:to-blue-700 transition-all transform hover:scale-105"
+                >
+                  Read Article
+                </a>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-6 py-3 bg-gray-200 text-gray-800 font-bold rounded-full hover:bg-gray-300 transition-all"
+                >
+                  Close
+                </button>
               </div>
-            </a>
+            </div>
           </div>
         )}
       </div>
