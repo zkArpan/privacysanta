@@ -7,17 +7,20 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGiftBoxY((prev) => {
-        if (prev >= window.innerHeight / 2 - 100) {
-          clearInterval(interval);
-          return window.innerHeight / 2 - 100;
-        }
-        return prev + 8;
-      });
-    }, 20);
-    return () => clearInterval(interval);
-  }, []);
+    if (stage === 'gift') {
+      setGiftBoxY(-200);
+      const interval = setInterval(() => {
+        setGiftBoxY((prev) => {
+          if (prev >= window.innerHeight / 2 - 100) {
+            clearInterval(interval);
+            return window.innerHeight / 2 - 100;
+          }
+          return prev + 8;
+        });
+      }, 20);
+      return () => clearInterval(interval);
+    }
+  }, [stage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
