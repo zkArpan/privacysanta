@@ -79,7 +79,7 @@ function App() {
                 Ho Ho Ho! 🎅
               </p>
               <p className="text-xl text-gray-700 mt-3 text-center">
-                What's your Christmas wish for web3 ?
+                What's your wish for web3 ?
               </p>
             </div>
           </div>
