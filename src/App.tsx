@@ -5,14 +5,17 @@ function App() {
   const [stage, setStage] = useState<'greeting' | 'waiting' | 'response' | 'gift'>('greeting');
   const [giftBoxY, setGiftBoxY] = useState(-200);
   const [showModal, setShowModal] = useState(false);
+  const [giftLanded, setGiftLanded] = useState(false);
 
   useEffect(() => {
     if (stage === 'gift') {
       setGiftBoxY(-200);
+      setGiftLanded(false);
       const interval = setInterval(() => {
         setGiftBoxY((prev) => {
           if (prev >= window.innerHeight / 2 - 100) {
             clearInterval(interval);
+            setGiftLanded(true);
             return window.innerHeight / 2 - 100;
           }
           return prev + 8;
@@ -97,25 +100,29 @@ function App() {
           </div>
         )}
 
-        <div
-          className="absolute left-1/2 transform -translate-x-1/2 transition-all duration-100"
-          style={{ top: `${giftBoxY}px` }}
-        >
-          <button
-            onClick={handleGiftClick}
-            className="block hover:scale-110 transition-transform duration-300 bg-transparent border-none cursor-pointer"
+        {stage === 'gift' && (
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 transition-all duration-100"
+            style={{ top: `${giftBoxY}px` }}
           >
-            <img
-              src="/gemini_generated_image_rxeqhlrxeqhlrxeq__1_-removebg-preview.png"
-              alt="Privacy Gift"
-              className="w-48 h-48 drop-shadow-2xl animate-bounce-slow"
-            />
-            <div className="mt-4 bg-white/95 rounded-2xl shadow-xl p-4 text-center">
-              <p className="text-lg font-bold text-blue-600">Click to Unlock</p>
-              <p className="text-sm text-gray-600">Santa's Secret</p>
-            </div>
-          </button>
-        </div>
+            <button
+              onClick={handleGiftClick}
+              className="block hover:scale-110 transition-transform duration-300 bg-transparent border-none cursor-pointer"
+            >
+              <img
+                src="/gemini_generated_image_rxeqhlrxeqhlrxeq__1_-removebg-preview.png"
+                alt="Privacy Gift"
+                className="w-48 h-48 drop-shadow-2xl animate-bounce-slow"
+              />
+              {giftLanded && (
+                <div className="mt-4 bg-white/95 rounded-2xl shadow-xl p-4 text-center animate-fade-in">
+                  <p className="text-lg font-bold text-blue-600">Click to Unlock</p>
+                  <p className="text-sm text-gray-600">Santa's Secret</p>
+                </div>
+              )}
+            </button>
+          </div>
+        )}
 
         {showModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
