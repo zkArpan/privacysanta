@@ -45,9 +45,9 @@ function App() {
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
         {stage === 'greeting' && (
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 max-w-md animate-fade-in">
+          <div className="absolute top-8 right-8 max-w-sm animate-fade-in">
             <div className="bg-white rounded-3xl shadow-2xl p-6 relative">
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white"></div>
+              <div className="absolute -left-4 top-6 w-0 h-0 border-l-[0px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white"></div>
               <p className="text-2xl font-bold text-gray-800 text-center">
                 Ho Ho Ho! 🎅
               </p>
@@ -59,7 +59,7 @@ function App() {
         )}
 
         {(stage === 'greeting' || stage === 'waiting') && (
-          <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4">
+          <div className="absolute top-48 right-8 w-full max-w-sm px-4">
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <input
                 type="text"
@@ -80,9 +80,9 @@ function App() {
         )}
 
         {stage === 'response' && (
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 max-w-md animate-fade-in">
+          <div className="absolute top-8 right-8 max-w-sm animate-fade-in">
             <div className="bg-white rounded-3xl shadow-2xl p-6 relative">
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white"></div>
+              <div className="absolute -left-4 top-6 w-0 h-0 border-l-[0px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white"></div>
               <p className="text-2xl font-bold text-blue-600 text-center">
                 Privacy! 🎯
               </p>
