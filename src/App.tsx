@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getRandomArticle, type Article } from './lib/supabase';
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -6,11 +7,16 @@ function App() {
   const [giftBoxY, setGiftBoxY] = useState(-200);
   const [showModal, setShowModal] = useState(false);
   const [giftLanded, setGiftLanded] = useState(false);
+  const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     if (stage === 'gift') {
       setGiftBoxY(-200);
       setGiftLanded(false);
+      (async () => {
+        const randomArticle = await getRandomArticle();
+        setArticle(randomArticle);
+      })();
       const interval = setInterval(() => {
         setGiftBoxY((prev) => {
           if (prev >= window.innerHeight / 2 - 100) {
@@ -145,18 +151,21 @@ function App() {
           </div>
         )}
 
-        {showModal && (
+        {showModal && article && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full animate-fade-in">
               <h2 className="text-3xl font-bold text-blue-600 mb-4 text-center">
                 You unlocked Santa's Secret Scroll of Privacy!
               </h2>
-              <p className="text-lg text-gray-700 mb-6 text-center">
+              <p className="text-lg font-semibold text-gray-800 mb-4 text-center">
+                {article.title}
+              </p>
+              <p className="text-sm text-gray-600 mb-6 text-center">
                 This article will make you 1% more invisible on the blockchain
               </p>
               <div className="flex gap-3">
                 <a
-                  href="https://ethereum.org/en/privacy/"
+                  href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-full text-center hover:from-blue-600 hover:to-blue-700 transition-all transform hover:scale-105"
