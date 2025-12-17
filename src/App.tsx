@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getRandomArticle, type Article } from './lib/supabase';
+import { getRandomArticle, type Article } from './lib/articles';
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -13,10 +13,7 @@ function App() {
     if (stage === 'gift') {
       setGiftBoxY(-200);
       setGiftLanded(false);
-      (async () => {
-        const randomArticle = await getRandomArticle();
-        setArticle(randomArticle);
-      })();
+      setArticle(getRandomArticle());
       const interval = setInterval(() => {
         setGiftBoxY((prev) => {
           if (prev >= window.innerHeight / 2 - 100) {
