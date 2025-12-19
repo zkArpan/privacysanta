@@ -124,7 +124,7 @@ function App() {
                   </p>
                   <p className="text-xl text-gray-700 mt-3 text-center">
                     Ahhh… a privacy believer.
-Few ask for this gift , even fewer understand it
+only a few ask for this gift , even fewer understand it
                   </p>
                 </>
               ) : (
