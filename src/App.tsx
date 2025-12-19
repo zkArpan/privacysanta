@@ -8,6 +8,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [giftLanded, setGiftLanded] = useState(false);
   const [article, setArticle] = useState<Article | null>(null);
+  const [isPrivacyWish, setIsPrivacyWish] = useState(true);
 
   useEffect(() => {
     if (stage === 'gift') {
@@ -30,11 +31,13 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (userInput.toLowerCase().includes('privacy')) {
+    if (userInput.trim()) {
+      const hasPrivacy = userInput.toLowerCase().includes('privacy');
+      setIsPrivacyWish(hasPrivacy);
       setStage('response');
       setTimeout(() => {
         setStage('gift');
-      }, 2000);
+      }, 3000);
     }
   };
 
@@ -114,12 +117,28 @@ function App() {
           <div className="absolute top-8 right-8 max-w-sm animate-fade-in">
             <div className="bg-white rounded-3xl shadow-2xl p-6 relative">
               <div className="absolute -left-4 top-6 w-0 h-0 border-l-[0px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white"></div>
-              <p className="text-2xl font-bold text-blue-600 text-center">
-                Privacy! 🎯
-              </p>
-              <p className="text-xl text-gray-700 mt-3 text-center">
-                An excellent wish! Here's something special for you...
-              </p>
+              {isPrivacyWish ? (
+                <>
+                  <p className="text-2xl font-bold text-blue-600 text-center">
+                    Privacy! 🎯
+                  </p>
+                  <p className="text-xl text-gray-700 mt-3 text-center">
+                    An excellent wish! Here's something special for you...
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl font-bold text-blue-600 text-center">
+                    Ho ho ho…
+                  </p>
+                  <p className="text-lg text-gray-700 mt-3 text-center">
+                    That's a lovely wish. But I've been doing this for centuries… I know what you really need.
+                  </p>
+                  <p className="text-xl font-bold text-blue-600 mt-4 text-center">
+                    Your true wish is… PRIVACY. 🔐✨
+                  </p>
+                </>
+              )}
             </div>
           </div>
         )}
