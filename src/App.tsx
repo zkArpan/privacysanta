@@ -123,7 +123,8 @@ function App() {
                     Privacy! 🎯
                   </p>
                   <p className="text-xl text-gray-700 mt-3 text-center">
-                    An excellent wish! Here's something special for you...
+                    Ahhh… a privacy believer.
+Few ask for this gift , even fewer understand it
                   </p>
                 </>
               ) : (
